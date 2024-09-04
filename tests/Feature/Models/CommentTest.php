@@ -5,21 +5,17 @@ namespace Tests\Feature\Models;
 use App\Models\Comment;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class CommentTest extends TestCase
 {
-    use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
-    public function testInserData(): void
+    use RefreshDatabase, ModelHelperTesting;
+    protected function model(): Model
     {
-        $data = Comment::factory()->make()->toArray();
-        Comment::create($data);
-        $this->assertDatabaseHas('comments', $data);
+        return new Comment();
     }
     public function testCommentRelationshipWithPost()
     {

@@ -6,22 +6,19 @@ use App\Models\Comment;
 use App\Models\Post;
 use App\Models\Tag;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class PostTest extends TestCase
 {
-    use RefreshDatabase;
-    /**
-     * A basic feature test example.
-     */
-    public function testInserData(): void
+    use RefreshDatabase, ModelHelperTesting;
+    protected function model(): Model
     {
-        $data = Post::factory()->make()->toArray();
-        Post::create($data);
-        $this->assertDatabaseHas('posts', $data);
+        return new Post();
     }
+
     function testPostRelationshipWithUser()
     {
         $post = Post::factory()->for(User::factory())->create();
